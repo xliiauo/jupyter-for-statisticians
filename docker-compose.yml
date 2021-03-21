@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  jupyter:
+    build: .
+    volumes:
+      - ./work:/home/zzx/work
+    ports:
+      - 8888:8888
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"
+      CHOWN_HOME: "yes"
+      NB_USER: "zzx"
+    user: root
+    entrypoint: start-notebook.sh
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 10
